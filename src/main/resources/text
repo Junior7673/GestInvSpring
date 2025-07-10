@@ -1,0 +1,89 @@
+# --- TEST PRODUITS ---
+
+# 1. Créer un produit
+POST http://localhost:8080/produit
+Content-Type: application/json
+
+{
+  "nomprod": "Clavier Gamer",
+  "prixprod": 25000,
+  "stockprod": 10,
+  "seuilAlerteprod":5,
+  "enAlerte":5,
+  "categorieId": 1,
+  "fournisseurId": 1
+}
+
+###
+
+# 2. Liste des produits
+GET http://localhost:8080/produit
+
+###
+
+# 3. Obtenir un produit par ID
+GET http://localhost:8080/produit/1
+
+###
+
+# 4. Modifier un produit
+PUT http://localhost:8080/produit/1
+Content-Type: application/json
+
+{
+  "nomprod": "Clavier Mécanique RGB",
+  "prixprod": 30000,
+  "stockproduit": 15,
+  "seuilAlerteprod":3
+  "categorieId": 1,
+  "fournisseurId": 1
+}
+
+###
+
+# 5. Supprimer un produit
+DELETE http://localhost:8080/produit/1
+
+###
+
+# --- TEST CATÉGORIES ---
+
+# 6. Créer une catégorie
+POST http://localhost:8080/categorie
+Content-Type: application/json
+
+{
+  "nomcat": "Périphériques",
+  "descriptioncat": "Cable VGA"
+}
+
+###
+
+# 7. Liste des catégories
+GET http://localhost:8080/categorie
+
+###
+
+# --- TEST FOURNISSEURS ---
+
+# 8. Créer un fournisseur
+POST http://localhost:8080/fournisseur
+Content-Type: application/json
+
+{
+  "nomfourni": "Tech Burkina",
+  "telephonefourni": "70 00 00 00",
+  "adressefourni": "Bobo-Dioulasso"
+}
+
+###
+
+# 9. Liste des fournisseurs
+GET http://localhost:8080/fournisseur
+
+
+# --- TEST ALERTE DE STOCK ---
+
+# 10. Liste des produits avec stock faible (< 5 par exemple)
+GET http://localhost:8080/produit/stock/alerte
+
