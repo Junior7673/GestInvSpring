@@ -35,6 +35,11 @@ public class CategorieController {
         return ResponseEntity.ok(service.getById(id));
     }
 
+    @PutMapping
+    public ResponseEntity<CategorieRequestDTO> update(@RequestBody CategorieRequestDTO dto){
+        return ResponseEntity.ok(service.save(dto));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> supprimer(@PathVariable Long id) {
         service.delete(id);
