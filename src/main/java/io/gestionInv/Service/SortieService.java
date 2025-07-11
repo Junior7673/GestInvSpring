@@ -5,8 +5,10 @@ import io.gestionInv.Domaine.Sortie;
 import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.ProduitGatewayInterface;
 import io.gestionInv.Gateway.Impl.SortieGatewayInterface;
+import io.gestionInv.Mapper.ProduitMapper;
 import io.gestionInv.Mapper.SortieMapper;
 import io.gestionInv.Persistance.ProduitJPAEntity;
+import io.gestionInv.Persistance.ProduitJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ public class SortieService implements SortieServiceInterface{
     private final SortieGatewayInterface gateway;
     private final ProduitGatewayInterface produitGateway;
     private final SortieMapper mapper;
+    private final ProduitJPARepository produitRepo;
+    private final ProduitMapper produitMapper;
 
     @Override
     public SortieRequestDTO save(SortieRequestDTO dto) {
@@ -35,6 +39,11 @@ public class SortieService implements SortieServiceInterface{
         Sortie sortie = mapper.toDomain(dto, produit);
         // Sauvegarde
         Sortie saved = gateway.save(sortie, produit);
+
+        int reste = produit.getStockprod() - dto.getStock();
+        produit.setStockprod(reste);
+        produitRepo.save(produit);
+
         // Retour du DTO avec ID généré
         return mapper.toDTO(saved);
     }

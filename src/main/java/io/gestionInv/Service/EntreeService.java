@@ -7,6 +7,7 @@ import io.gestionInv.Gateway.Impl.EntreeGatewayInterface;
 import io.gestionInv.Gateway.Impl.ProduitGatewayInterface;
 import io.gestionInv.Mapper.EntreeMapper;
 import io.gestionInv.Persistance.ProduitJPAEntity;
+import io.gestionInv.Persistance.ProduitJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class EntreeService implements EntreeServiceInterface{
     private final EntreeGatewayInterface gateway;
     private final ProduitGatewayInterface produitGateway;
     private final EntreeMapper mapper;
+    private final ProduitJPARepository produitRepo;
 
     @Override
     public EntreeRequestDTO save(EntreeRequestDTO dto) {
@@ -35,6 +37,11 @@ public class EntreeService implements EntreeServiceInterface{
         Entree entree = mapper.toDomain(dto);
         // Sauvegarde
         Entree saved = gateway.save(entree, produit);
+
+        int reste = produit.getStockprod() + dto.getStock();
+        produit.setStockprod(reste);
+        produitRepo.save(produit);
+
         // Retour du DTO avec ID généré
         return mapper.toDTO(saved);
     }
