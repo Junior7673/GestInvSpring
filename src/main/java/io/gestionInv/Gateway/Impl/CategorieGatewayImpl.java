@@ -30,9 +30,9 @@ public class CategorieGatewayImpl implements CategorieGatewayInterface {
                 .collect(Collectors.toList());
     }
     @Override
-    public Categorie findById(Long id) {
+    public CategorieJPAEntity findById(Long id) {
         Optional<CategorieJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toDomain).orElse(null);
+        return entity.map(mapper::toEntity).orElse(null);
     }
 
     @Override

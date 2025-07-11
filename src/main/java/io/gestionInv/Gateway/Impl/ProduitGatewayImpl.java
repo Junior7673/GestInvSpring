@@ -3,6 +3,7 @@ package io.gestionInv.Gateway.Impl;
 import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Mapper.ProduitMapper;
 import io.gestionInv.Persistance.CategorieJPAEntity;
+import io.gestionInv.Persistance.FournisseurJPAEntity;
 import io.gestionInv.Persistance.ProduitJPAEntity;
 import io.gestionInv.Persistance.ProduitJPARepository;
 import lombok.AllArgsConstructor;
@@ -22,8 +23,8 @@ public class ProduitGatewayImpl implements ProduitGatewayInterface {
 
 
     @Override
-    public Produit save(Produit produit) {
-        ProduitJPAEntity entity = repository.save(mapper.toEntity(produit));
+    public Produit save(Produit produit, CategorieJPAEntity categorie, FournisseurJPAEntity fournisseur) {
+        ProduitJPAEntity entity = repository.save(mapper.toEntity(produit, categorie, fournisseur));
         return mapper.toDomain(entity);
     }
 

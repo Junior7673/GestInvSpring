@@ -32,9 +32,9 @@ public class FournisseurGatewayImpl implements FournisseurGatewayInterface{
     }
 
     @Override
-    public Fournisseur findById(Long id) {
+    public FournisseurJPAEntity findById(Long id) {
         Optional<FournisseurJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toDomain).orElse(null);
+        return entity.map(mapper::toEntity).orElse(null);
     }
 
     @Override

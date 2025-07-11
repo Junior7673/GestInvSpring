@@ -30,19 +30,19 @@ public class ProduitService implements ProduitServiceInterface{
             throw new IllegalArgumentException("Les IDs de catégorie et fournisseur sont requis.");
         }
         // Vérification de la catégorie
-        Categorie categorie = categorieGateway.findById(dto.getCategorieId());
+        CategorieJPAEntity categorie = categorieGateway.findById(dto.getCategorieId());
         if (categorie == null) {
             throw new RessourceIntrouvableException("Catégorie avec ID " + dto.getCategorieId() + " introuvable.");
         }
         // Vérification du fournisseur
-        Fournisseur fournisseur = fournisseurGateway.findById(dto.getFournisseurId());
+        FournisseurJPAEntity fournisseur = fournisseurGateway.findById(dto.getFournisseurId());
         if (fournisseur == null) {
             throw new RessourceIntrouvableException("Fournisseur avec ID " + dto.getFournisseurId() + " introuvable.");
         }
         // Mapping du DTO vers entité domaine
-        Produit produit = mapper.toDomain(dto, categorie, fournisseur);
+        Produit produit = mapper.toDomain(dto);
         // Sauvegarde
-        Produit saved = gateway.save(produit);
+        Produit saved = gateway.save(produit, categorie, fournisseur);
         // Retour du DTO avec ID généré
         return mapper.toDTO(saved);
     }

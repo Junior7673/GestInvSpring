@@ -41,15 +41,15 @@ public class ProduitMapper {
         return produit;
     }
 
-    public ProduitJPAEntity toEntity(Produit produit) {
+    public ProduitJPAEntity toEntity(Produit produit, CategorieJPAEntity categorie, FournisseurJPAEntity fournisseur) {
         return new ProduitJPAEntity(
                 produit.getId(),
                 produit.getNomprod(),
                 produit.getPrixprod(),
                 produit.getStockprod(),
                 produit.getSeuilAlerteprod(),
-                toCategorieEntity(produit.getCategorie()),
-                toFournisseurEntity(produit.getFournisseur())
+                categorie,
+                fournisseur
         );
     }
 
@@ -75,16 +75,13 @@ public class ProduitMapper {
         return new Fournisseur(entity.getId(), entity.getNomfourni(), entity.getTelephonefourni(), entity.getAdressefourni());
     }
 
-
-    public Produit toDomain(ProduitRequestDTO dto, Categorie categorie, Fournisseur fournisseur) {
+    public Produit toDomain(ProduitRequestDTO dto) {
         Produit produit = new Produit();
         produit.setId(dto.getId());
         produit.setNomprod(dto.getNomprod());
         produit.setStockprod(dto.getStockprod());
         produit.setPrixprod(dto.getPrixprod());
         produit.setSeuilAlerteprod(dto.getSeuilAlerteprod());
-        produit.setCategorie(categorie);
-        produit.setFournisseur(fournisseur);
         return produit;
     }
 
