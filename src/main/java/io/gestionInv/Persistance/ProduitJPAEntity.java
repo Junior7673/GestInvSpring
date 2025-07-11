@@ -1,5 +1,6 @@
 package io.gestionInv.Persistance;
 
+import io.gestionInv.Domaine.Produit;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name="Produit")
-public class ProduitJPAEntity {
+public class ProduitJPAEntity extends Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

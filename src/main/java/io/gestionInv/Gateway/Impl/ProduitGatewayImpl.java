@@ -44,9 +44,9 @@ public class ProduitGatewayImpl implements ProduitGatewayInterface {
                 .collect(Collectors.toList());    }
 
     @Override
-    public Produit findById(Long id) {
+    public ProduitJPAEntity findById(Long id) {
         Optional<ProduitJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toDomain).orElse(null);
+        return entity.map(mapper::toEntityPartiel).orElse(null);
     }
 
     @Override

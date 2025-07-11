@@ -1,4 +1,30 @@
 package io.gestionInv.Persistance;
 
-public class SortieJPAEntity {
+import io.gestionInv.Domaine.Sortie;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.sql.Date;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@Entity
+@Table(name="Sortie")
+public class SortieJPAEntity extends Sortie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private int stock;
+
+    private Date date;
+
+    @ManyToOne
+    @JoinColumn(name = "produitId")
+    private ProduitJPAEntity produit;
 }

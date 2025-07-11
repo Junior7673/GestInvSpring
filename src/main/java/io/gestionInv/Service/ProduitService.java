@@ -23,6 +23,7 @@ public class ProduitService implements ProduitServiceInterface{
     private final CategorieGatewayInterface categorieGateway;
     private final FournisseurGatewayInterface fournisseurGateway;
     private final ProduitMapper mapper;
+    private final ProduitJPARepository repository;
 
     @Override
     public ProduitRequestDTO save(ProduitRequestDTO dto) {
@@ -47,11 +48,17 @@ public class ProduitService implements ProduitServiceInterface{
         return mapper.toDTO(saved);
     }
 
-
-
     @Override
     public List<ProduitRequestDTO> liste() {
         return gateway.findAll()
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProduitRequestDTO> search(String term){
+        return repository.findByNomprodContainingIgnoreCase(term)
                 .stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());

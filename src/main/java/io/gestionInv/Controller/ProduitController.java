@@ -24,6 +24,11 @@ public class ProduitController {
         return ResponseEntity.ok(service.save(dto));
     }
 
+    @PostMapping("/search")
+    public ResponseEntity<List<ProduitRequestDTO>> search(@RequestBody ProduitRequestDTO dto) {
+        return ResponseEntity.ok(service.search(dto.getNomprod()));
+    }
+
     @GetMapping
     public ResponseEntity<List<ProduitRequestDTO>> liste() {
         return ResponseEntity.ok(service.liste());

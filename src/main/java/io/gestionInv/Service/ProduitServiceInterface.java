@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ProduitServiceInterface {
     List<ProduitRequestDTO> liste();
+    List<ProduitRequestDTO> search(String term);
     List<ProduitRequestDTO> produitsEnAlerte();
     ProduitRequestDTO getProduit(Long id);
     void delete(Long id);

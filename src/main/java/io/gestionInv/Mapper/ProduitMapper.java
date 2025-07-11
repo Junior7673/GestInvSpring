@@ -53,6 +53,17 @@ public class ProduitMapper {
         );
     }
 
+    public ProduitJPAEntity toEntityPartiel(Produit produit) {
+        ProduitJPAEntity entity = new ProduitJPAEntity();
+        entity.setId(produit.getId());
+        entity.setNomprod(produit.getNomprod());
+        entity.setPrixprod(produit.getPrixprod());
+        entity.setStockprod(produit.getStockprod());
+        entity.setSeuilAlerteprod(produit.getSeuilAlerteprod());
+
+        return entity;
+    }
+
     // --- Conversions Categorie
     private CategorieJPAEntity toCategorieEntity(Categorie cat) {
         if (cat == null) return null;
