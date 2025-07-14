@@ -71,4 +71,5 @@ public class EntreeService implements EntreeServiceInterface{
         }
         gateway.delete(id);
     }
+
 }
