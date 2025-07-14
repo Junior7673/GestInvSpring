@@ -1,5 +1,6 @@
 package io.gestionInv.Controller;
 
+import io.gestionInv.DTO.CategorieRequestDTO;
 import io.gestionInv.DTO.ProduitRequestDTO;
 import io.gestionInv.Service.ProduitServiceInterface;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,11 @@ public class ProduitController {
 
     private final ProduitServiceInterface service;
     private static final Logger logger = LoggerFactory.getLogger(ProduitController.class);
+
+    @GetMapping("/{id:\\d+}")
+    public ResponseEntity<ProduitRequestDTO> get(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getProduit(id));
+    }
 
     @PostMapping("/add")
     public ResponseEntity<ProduitRequestDTO> creer(@RequestBody ProduitRequestDTO dto) {
