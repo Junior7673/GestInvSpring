@@ -1,5 +1,6 @@
 package io.gestionInv.Gateway.Impl;
 
+import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Domaine.Sortie;
 import io.gestionInv.Mapper.SortieMapper;
 import io.gestionInv.Persistance.ProduitJPAEntity;
@@ -19,7 +20,7 @@ public class SortieGatewayImpl implements SortieGatewayInterface{
     private final SortieMapper mapper;
 
     @Override
-    public Sortie save(Sortie sortie, ProduitJPAEntity produit) {
+    public Sortie save(Sortie sortie, Produit produit) {
         SortieJPAEntity entity = repository.save(mapper.toEntityComplete(sortie, produit));
         return mapper.toDomain(entity);
     }
@@ -33,9 +34,9 @@ public class SortieGatewayImpl implements SortieGatewayInterface{
     }
 
     @Override
-    public SortieJPAEntity findById(Long id) {
+    public Sortie findById(Long id) {
         Optional<SortieJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toEntity).orElse(null);
+        return entity.map(mapper::toDomain).orElse(null);
     }
 
     @Override

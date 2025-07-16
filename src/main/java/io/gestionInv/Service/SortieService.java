@@ -1,6 +1,7 @@
 package io.gestionInv.Service;
 
 import io.gestionInv.DTO.SortieRequestDTO;
+import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Domaine.Sortie;
 import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.ProduitGatewayInterface;
@@ -21,7 +22,7 @@ public class SortieService implements SortieServiceInterface{
     private final SortieGatewayInterface gateway;
     private final ProduitGatewayInterface produitGateway;
     private final SortieMapper mapper;
-    private final ProduitJPARepository produitRepo;
+    private final ProduitService produitService;
     private final ProduitMapper produitMapper;
 
     @Override
@@ -31,7 +32,7 @@ public class SortieService implements SortieServiceInterface{
         }
 
         // Vérification du produit
-        ProduitJPAEntity produit = produitGateway.findById(dto.getProduitId());
+        Produit produit = produitGateway.findById(dto.getProduitId());
         if (produit == null) {
             throw new RessourceIntrouvableException("Produit avec ID " + dto.getProduitId() + " introuvable.");
         }
@@ -42,7 +43,7 @@ public class SortieService implements SortieServiceInterface{
 
         int reste = produit.getStockprod() - dto.getStock();
         produit.setStockprod(reste);
-        produitRepo.save(produit);
+        produitService.save(produitMapper.toDTO(produit));
 
         // Retour du DTO avec ID généré
         return mapper.toDTO(saved);

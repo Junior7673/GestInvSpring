@@ -1,6 +1,8 @@
 package io.gestionInv.Service;
 
 import io.gestionInv.DTO.ProduitRequestDTO;
+import io.gestionInv.Domaine.Categorie;
+import io.gestionInv.Domaine.Fournisseur;
 import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.CategorieGatewayInterface;
@@ -30,12 +32,12 @@ public class ProduitService implements ProduitServiceInterface{
             throw new IllegalArgumentException("Les IDs de catégorie et fournisseur sont requis.");
         }
         // Vérification de la catégorie
-        CategorieJPAEntity categorie = categorieGateway.findById(dto.getCategorieId());
+        Categorie categorie = categorieGateway.findById(dto.getCategorieId());
         if (categorie == null) {
             throw new RessourceIntrouvableException("Catégorie avec ID " + dto.getCategorieId() + " introuvable.");
         }
         // Vérification du fournisseur
-        FournisseurJPAEntity fournisseur = fournisseurGateway.findById(dto.getFournisseurId());
+        Fournisseur fournisseur = fournisseurGateway.findById(dto.getFournisseurId());
         if (fournisseur == null) {
             throw new RessourceIntrouvableException("Fournisseur avec ID " + dto.getFournisseurId() + " introuvable.");
         }
@@ -57,7 +59,7 @@ public class ProduitService implements ProduitServiceInterface{
 
     @Override
     public List<ProduitRequestDTO> search(String term){
-        return repository.findByNomprodContainingIgnoreCase(term)
+        return gateway.search(term)
                 .stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());

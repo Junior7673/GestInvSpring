@@ -8,7 +8,8 @@ import java.util.List;
 public interface FournisseurGatewayInterface {
     Fournisseur save(Fournisseur fournisseur);
     List<Fournisseur> findAll();
-    FournisseurJPAEntity findById(Long id);
+    List<Fournisseur> search(String term);
+    Fournisseur findById(Long id);
     boolean existsById(Long id);
     void delete(Long id);
 }

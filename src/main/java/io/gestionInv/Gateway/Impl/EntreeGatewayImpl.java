@@ -20,12 +20,10 @@ public class EntreeGatewayImpl implements EntreeGatewayInterface{
     private final EntreeMapper mapper;
 
    @Override
-    public Entree save(Entree entree, ProduitJPAEntity produit) {
+    public Entree save(Entree entree, Produit produit) {
         EntreeJPAEntity entity = repository.save(mapper.toEntityComplete(entree, produit));
         return mapper.toDomain(entity);
     }
-
-
 
     @Override
     public List<Entree> findAll() {
@@ -36,9 +34,9 @@ public class EntreeGatewayImpl implements EntreeGatewayInterface{
     }
 
     @Override
-    public EntreeJPAEntity findById(Long id) {
+    public Entree findById(Long id) {
         Optional<EntreeJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toEntity).orElse(null);
+        return entity.map(mapper::toDomain).orElse(null);
     }
 
     @Override

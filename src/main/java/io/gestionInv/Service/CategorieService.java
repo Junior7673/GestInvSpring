@@ -5,6 +5,7 @@ import io.gestionInv.Domaine.Categorie;
 import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.CategorieGatewayInterface;
 import io.gestionInv.Mapper.CategorieMapper;
+import io.gestionInv.Persistance.CategorieJPAEntity;
 import io.gestionInv.Repository.CategorieJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class CategorieService implements CategorieServiceInterface{
 
     @Override
     public List<CategorieRequestDTO> search(String term) {
-        return repository.findByNomcatContainingIgnoreCase(term)
+        return gateway.search(term)
                 .stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());

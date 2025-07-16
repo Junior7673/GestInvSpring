@@ -36,7 +36,7 @@ public class FournisseurService implements FournisseurServiceInterface{
 
     @Override
     public List<FournisseurRequestDTO> search(String term) {
-        return repository.findByNomfourniContainingIgnoreCase(term)
+        return gateway.search(term)
                 .stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());

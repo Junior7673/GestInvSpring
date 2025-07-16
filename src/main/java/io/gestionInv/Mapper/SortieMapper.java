@@ -19,12 +19,12 @@ import org.springframework.stereotype.Component;
 public class SortieMapper {
     private final ProduitMapper produitMapper;
 
-    public SortieJPAEntity toEntityComplete(Sortie sortie, ProduitJPAEntity produit) {
+    public SortieJPAEntity toEntityComplete(Sortie sortie, Produit produit) {
         SortieJPAEntity entity = new SortieJPAEntity();
         entity.setId(sortie.getId());
         entity.setStock(sortie.getStock());
         entity.setDate(sortie.getDate());
-        entity.setProduit(produit);
+        entity.setProduit(produitMapper.basicToEntity(produit));
 
         return entity;
     }
@@ -63,7 +63,7 @@ public class SortieMapper {
         sortie.setId(entity.getId());
         sortie.setStock(entity.getStock());
         sortie.setDate(entity.getDate());
-        sortie.setProduit(entity.getProduit());
+        sortie.setProduit(produitMapper.toDomain(entity.getProduit()));
 
         return sortie;
     }

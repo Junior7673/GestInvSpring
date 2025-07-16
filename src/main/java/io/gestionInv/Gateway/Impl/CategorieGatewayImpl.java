@@ -29,12 +29,21 @@ public class CategorieGatewayImpl implements CategorieGatewayInterface {
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
+
     @Override
-    public CategorieJPAEntity findById(Long id) {
+    public List<Categorie> search(String term) {
+        return repository.findByNomcatContainingIgnoreCase(term)
+                .stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Categorie findById(Long id) {
        /* Optional<CategorieJPAEntity> entity = repository.findById(id);
         return entity.map(mapper::toEntity).orElse(null);*/
         Optional<CategorieJPAEntity> entity = repository.findById(id);
-        return (CategorieJPAEntity) entity.map(mapper::toDomain).orElse(null);
+        return entity.map(mapper::toDomain).orElse(null);
     }
 
     @Override

@@ -15,6 +15,15 @@ public class CategorieMapper {
         dto.setDescriptioncat(categorie.getDescriptioncat());
         return dto;
     }
+
+    public CategorieRequestDTO fromDomainToDTO(Categorie categorie){
+        CategorieRequestDTO dto = new CategorieRequestDTO();
+        dto.setId(categorie.getId());
+        dto.setNomcat(categorie.getNomcat());
+        dto.setDescriptioncat(categorie.getDescriptioncat());
+        return dto;
+    }
+
     // DTO → Domaine
     public Categorie toDomain(CategorieRequestDTO dto) {
         Categorie categorie = new Categorie();

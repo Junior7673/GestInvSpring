@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Produit extends ProduitJPAEntity {
+public class Produit {
     private Long id;
     private String nomprod;
     private double prixprod;

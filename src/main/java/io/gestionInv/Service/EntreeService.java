@@ -7,6 +7,7 @@ import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.EntreeGatewayInterface;
 import io.gestionInv.Gateway.Impl.ProduitGatewayInterface;
 import io.gestionInv.Mapper.EntreeMapper;
+import io.gestionInv.Mapper.ProduitMapper;
 import io.gestionInv.Persistance.ProduitJPAEntity;
 import io.gestionInv.Repository.ProduitJPARepository;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,8 @@ public class EntreeService implements EntreeServiceInterface{
     private final EntreeGatewayInterface gateway;
     private final ProduitGatewayInterface produitGateway;
     private final EntreeMapper mapper;
-    private final ProduitJPARepository produitRepo;
+    private final ProduitMapper produitMapper;
+    private final ProduitService produitService;
 
     @Override
     public EntreeRequestDTO save(EntreeRequestDTO dto) {
@@ -30,7 +32,7 @@ public class EntreeService implements EntreeServiceInterface{
         }
 
         // Vérification du produit
-        ProduitJPAEntity produit = produitGateway.findById(dto.getProduitId());
+        Produit produit = produitGateway.findById(dto.getProduitId());
         if (produit == null) {
             throw new RessourceIntrouvableException("Produit avec ID " + dto.getProduitId() + " introuvable.");
         }
@@ -41,7 +43,7 @@ public class EntreeService implements EntreeServiceInterface{
 
         int reste = produit.getStockprod() + dto.getStock();
         produit.setStockprod(reste);
-        produitRepo.save(produit);
+        produitService.save(produitMapper.toDTO(produit));
 
         // Retour du DTO avec ID généré
         return mapper.toDTO(saved);

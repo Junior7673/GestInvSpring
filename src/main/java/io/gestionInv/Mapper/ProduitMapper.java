@@ -41,15 +41,27 @@ public class ProduitMapper {
         return produit;
     }
 
-    public ProduitJPAEntity toEntity(Produit produit, CategorieJPAEntity categorie, FournisseurJPAEntity fournisseur) {
+    public ProduitJPAEntity toEntity(Produit produit, Categorie categorie, Fournisseur fournisseur) {
         return new ProduitJPAEntity(
-                produit.getId(),
-                produit.getNomprod(),
-                produit.getPrixprod(),
-                produit.getStockprod(),
-                produit.getSeuilAlerteprod(),
-                categorie,
-                fournisseur
+            produit.getId(),
+            produit.getNomprod(),
+            produit.getPrixprod(),
+            produit.getStockprod(),
+            produit.getSeuilAlerteprod(),
+            categorieMapper.toEntity(categorie),
+            fournisseurMapper.toEntity(fournisseur)
+        );
+    }
+
+    public ProduitJPAEntity basicToEntity(Produit produit){
+        return new ProduitJPAEntity(
+            produit.getId(),
+            produit.getNomprod(),
+            produit.getPrixprod(),
+            produit.getStockprod(),
+            produit.getSeuilAlerteprod(),
+            categorieMapper.toEntity(produit.getCategorie()),
+            fournisseurMapper.toEntity(produit.getFournisseur())
         );
     }
 

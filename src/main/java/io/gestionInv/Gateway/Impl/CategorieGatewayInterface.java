@@ -8,7 +8,8 @@ import java.util.List;
 public interface CategorieGatewayInterface {
     Categorie save(Categorie categorie);
     List<Categorie> findAll();
-    CategorieJPAEntity findById(Long id);
+    List<Categorie> search(String term);
+    Categorie findById(Long id);
     boolean existsById(Long id);
     void delete(Long id);
 }

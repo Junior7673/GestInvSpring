@@ -1,5 +1,7 @@
 package io.gestionInv.Gateway.Impl;
 
+import io.gestionInv.Domaine.Categorie;
+import io.gestionInv.Domaine.Fournisseur;
 import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Mapper.ProduitMapper;
 import io.gestionInv.Persistance.CategorieJPAEntity;
@@ -21,7 +23,7 @@ public class ProduitGatewayImpl implements ProduitGatewayInterface {
 
 
     @Override
-    public Produit save(Produit produit, CategorieJPAEntity categorie, FournisseurJPAEntity fournisseur) {
+    public Produit save(Produit produit, Categorie categorie, Fournisseur fournisseur) {
         ProduitJPAEntity entity = repository.save(mapper.toEntity(produit, categorie, fournisseur));
         return mapper.toDomain(entity);
     }
@@ -42,7 +44,15 @@ public class ProduitGatewayImpl implements ProduitGatewayInterface {
                 .collect(Collectors.toList());    }
 
     @Override
-    public ProduitJPAEntity findById(Long id) {
+    public List<Produit> search(String term){
+        return repository.findByNomprodContainingIgnoreCase(term)
+            .stream()
+            .map(mapper::toDomain)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public Produit findById(Long id) {
         Optional<ProduitJPAEntity> entity = repository.findById(id);
         return entity.map(mapper::toDomain).orElse(null);
     }
