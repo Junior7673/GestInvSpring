@@ -5,14 +5,12 @@ import io.gestionInv.Domaine.Fournisseur;
 import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.FournisseurGatewayInterface;
 import io.gestionInv.Mapper.FournisseurMapper;
-import io.gestionInv.Persistance.FournisseurJPARepository;
+import io.gestionInv.Repository.FournisseurJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.antlr.v4.runtime.tree.xpath.XPath.findAll;
 
 @Service
 @AllArgsConstructor

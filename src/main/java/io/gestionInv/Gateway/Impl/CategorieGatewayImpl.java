@@ -3,7 +3,7 @@ package io.gestionInv.Gateway.Impl;
 import io.gestionInv.Domaine.Categorie;
 import io.gestionInv.Mapper.CategorieMapper;
 import io.gestionInv.Persistance.CategorieJPAEntity;
-import io.gestionInv.Persistance.CategorieJPARepository;
+import io.gestionInv.Repository.CategorieJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +31,10 @@ public class CategorieGatewayImpl implements CategorieGatewayInterface {
     }
     @Override
     public CategorieJPAEntity findById(Long id) {
+       /* Optional<CategorieJPAEntity> entity = repository.findById(id);
+        return entity.map(mapper::toEntity).orElse(null);*/
         Optional<CategorieJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toEntity).orElse(null);
+        return (CategorieJPAEntity) entity.map(mapper::toDomain).orElse(null);
     }
 
     @Override

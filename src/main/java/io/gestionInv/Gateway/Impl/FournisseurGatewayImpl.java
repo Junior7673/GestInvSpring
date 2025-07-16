@@ -3,7 +3,7 @@ package io.gestionInv.Gateway.Impl;
 import io.gestionInv.Domaine.Fournisseur;
 import io.gestionInv.Mapper.FournisseurMapper;
 import io.gestionInv.Persistance.FournisseurJPAEntity;
-import io.gestionInv.Persistance.FournisseurJPARepository;
+import io.gestionInv.Repository.FournisseurJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +33,10 @@ public class FournisseurGatewayImpl implements FournisseurGatewayInterface{
 
     @Override
     public FournisseurJPAEntity findById(Long id) {
+        /*Optional<FournisseurJPAEntity> entity = repository.findById(id);
+        return entity.map(mapper::toEntity).orElse(null);*/
         Optional<FournisseurJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toEntity).orElse(null);
+        return (FournisseurJPAEntity) entity.map(mapper::toDomain).orElse(null);
     }
 
     @Override

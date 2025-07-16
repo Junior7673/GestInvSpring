@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name="Categorie")
-public class CategorieJPAEntity extends Categorie {
+public class CategorieJPAEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +30,8 @@ public class CategorieJPAEntity extends Categorie {
 
 
     public CategorieJPAEntity(Long id, String nomcat, String descriptioncat) {
+        this.id = id;
+        this.nomcat = nomcat;
+        this.descriptioncat = descriptioncat;
     }
 }

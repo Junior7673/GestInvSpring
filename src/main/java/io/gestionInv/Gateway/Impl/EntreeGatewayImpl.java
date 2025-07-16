@@ -1,10 +1,10 @@
 package io.gestionInv.Gateway.Impl;
 
 import io.gestionInv.Domaine.Entree;
+import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Mapper.EntreeMapper;
-import io.gestionInv.Persistance.CategorieJPAEntity;
 import io.gestionInv.Persistance.EntreeJPAEntity;
-import io.gestionInv.Persistance.EntreeJPARepository;
+import io.gestionInv.Repository.EntreeJPARepository;
 import io.gestionInv.Persistance.ProduitJPAEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,13 @@ public class EntreeGatewayImpl implements EntreeGatewayInterface{
     private final EntreeJPARepository repository;
     private final EntreeMapper mapper;
 
-    @Override
+   @Override
     public Entree save(Entree entree, ProduitJPAEntity produit) {
         EntreeJPAEntity entity = repository.save(mapper.toEntityComplete(entree, produit));
         return mapper.toDomain(entity);
     }
+
+
 
     @Override
     public List<Entree> findAll() {

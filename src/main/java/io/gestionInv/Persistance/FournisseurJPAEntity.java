@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "Fournisseur")
-public class FournisseurJPAEntity extends Fournisseur {
+public class FournisseurJPAEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +34,10 @@ public class FournisseurJPAEntity extends Fournisseur {
     private List<ProduitJPAEntity> produitsJPAEntity = new ArrayList<>();
 
     public FournisseurJPAEntity(Long id, String nomfourni, String telephonefourni, String adressefourni) {
+        this.id = id;
+        this.nomfourni = nomfourni;
+        this.telephonefourni = telephonefourni;
+        this.adressefourni = adressefourni;
     }
 }
 

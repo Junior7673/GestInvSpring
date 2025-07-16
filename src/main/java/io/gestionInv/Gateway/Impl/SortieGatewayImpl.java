@@ -2,10 +2,9 @@ package io.gestionInv.Gateway.Impl;
 
 import io.gestionInv.Domaine.Sortie;
 import io.gestionInv.Mapper.SortieMapper;
-import io.gestionInv.Persistance.EntreeJPAEntity;
 import io.gestionInv.Persistance.ProduitJPAEntity;
 import io.gestionInv.Persistance.SortieJPAEntity;
-import io.gestionInv.Persistance.SortieJPARepository;
+import io.gestionInv.Repository.SortieJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

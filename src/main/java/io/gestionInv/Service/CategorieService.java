@@ -5,8 +5,7 @@ import io.gestionInv.Domaine.Categorie;
 import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.CategorieGatewayInterface;
 import io.gestionInv.Mapper.CategorieMapper;
-import io.gestionInv.Persistance.CategorieJPAEntity;
-import io.gestionInv.Persistance.CategorieJPARepository;
+import io.gestionInv.Repository.CategorieJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

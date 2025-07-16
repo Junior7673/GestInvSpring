@@ -1,12 +1,8 @@
 package io.gestionInv.Mapper;
 
 import io.gestionInv.DTO.EntreeRequestDTO;
-import io.gestionInv.DTO.ProduitRequestDTO;
-import io.gestionInv.Domaine.Categorie;
 import io.gestionInv.Domaine.Entree;
-import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Persistance.EntreeJPAEntity;
-import io.gestionInv.Persistance.EntreeJPARepository;
 import io.gestionInv.Persistance.ProduitJPAEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 public class EntreeMapper {
+    private final ProduitMapper produitMapper;
 
     public EntreeJPAEntity toEntityComplete(Entree entree, ProduitJPAEntity produit) {
         EntreeJPAEntity entity = new EntreeJPAEntity();
@@ -26,7 +23,7 @@ public class EntreeMapper {
         return entity;
     }
 
-    public EntreeJPAEntity toEntity(Entree entree) {
+    public ProduitJPAEntity toEntity(Entree entree) {
         EntreeJPAEntity entity = new EntreeJPAEntity();
         entity.setId(entree.getId());
         entity.setStock(entree.getStock());
@@ -59,7 +56,9 @@ public class EntreeMapper {
         entree.setId(entity.getId());
         entree.setStock(entity.getStock());
         entree.setDate(entity.getDate());
-        entree.setProduit(entity.getProduit());
+        //entree.setProduit(entity.getProduit());
+        // 🔁 Conversion du ProduitJPAEntity → Produit (via mapper)
+        entree.setProduit(produitMapper.toDomain(entity.getProduit()));
 
         return entree;
     }

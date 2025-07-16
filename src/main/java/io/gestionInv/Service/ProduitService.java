@@ -1,8 +1,6 @@
 package io.gestionInv.Service;
 
 import io.gestionInv.DTO.ProduitRequestDTO;
-import io.gestionInv.Domaine.Categorie;
-import io.gestionInv.Domaine.Fournisseur;
 import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.CategorieGatewayInterface;
@@ -10,6 +8,7 @@ import io.gestionInv.Gateway.Impl.FournisseurGatewayInterface;
 import io.gestionInv.Gateway.Impl.ProduitGatewayInterface;
 import io.gestionInv.Mapper.ProduitMapper;
 import io.gestionInv.Persistance.*;
+import io.gestionInv.Repository.ProduitJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

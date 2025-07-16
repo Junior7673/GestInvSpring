@@ -2,6 +2,7 @@ package io.gestionInv.Domaine;
 
 import io.gestionInv.Persistance.CategorieJPAEntity;
 import io.gestionInv.Persistance.FournisseurJPAEntity;
+import io.gestionInv.Persistance.ProduitJPAEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Produit {
+public class Produit extends ProduitJPAEntity {
     private Long id;
     private String nomprod;
     private double prixprod;

@@ -1,30 +1,30 @@
 package io.gestionInv.Persistance;
 
-import io.gestionInv.Domaine.Sortie;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-
+@Table(name="Utilisateur")
+@Entity
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@Entity
-@Table(name="Sortie")
-public class SortieJPAEntity {
+public class UtilisateurJPAEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int stock;
+    private String nomUtilisateur;
 
-    private Date date;
+    private String motDePasse;
 
-    @ManyToOne
-    @JoinColumn(name = "produitId")
-    private ProduitJPAEntity produit;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public enum Role {
+        ADMIN, UTILISATEUR
+    }
 }

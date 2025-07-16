@@ -8,7 +8,7 @@ import io.gestionInv.Gateway.Impl.SortieGatewayInterface;
 import io.gestionInv.Mapper.ProduitMapper;
 import io.gestionInv.Mapper.SortieMapper;
 import io.gestionInv.Persistance.ProduitJPAEntity;
-import io.gestionInv.Persistance.ProduitJPARepository;
+import io.gestionInv.Repository.ProduitJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

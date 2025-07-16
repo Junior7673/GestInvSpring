@@ -5,10 +5,8 @@ import io.gestionInv.Mapper.ProduitMapper;
 import io.gestionInv.Persistance.CategorieJPAEntity;
 import io.gestionInv.Persistance.FournisseurJPAEntity;
 import io.gestionInv.Persistance.ProduitJPAEntity;
-import io.gestionInv.Persistance.ProduitJPARepository;
+import io.gestionInv.Repository.ProduitJPARepository;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,7 +44,7 @@ public class ProduitGatewayImpl implements ProduitGatewayInterface {
     @Override
     public ProduitJPAEntity findById(Long id) {
         Optional<ProduitJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toEntityPartiel).orElse(null);
+        return entity.map(mapper::toDomain).orElse(null);
     }
 
     @Override

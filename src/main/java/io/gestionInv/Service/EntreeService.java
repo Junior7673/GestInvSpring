@@ -2,12 +2,13 @@ package io.gestionInv.Service;
 
 import io.gestionInv.DTO.EntreeRequestDTO;
 import io.gestionInv.Domaine.Entree;
+import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Exception.RessourceIntrouvableException;
 import io.gestionInv.Gateway.Impl.EntreeGatewayInterface;
 import io.gestionInv.Gateway.Impl.ProduitGatewayInterface;
 import io.gestionInv.Mapper.EntreeMapper;
 import io.gestionInv.Persistance.ProduitJPAEntity;
-import io.gestionInv.Persistance.ProduitJPARepository;
+import io.gestionInv.Repository.ProduitJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

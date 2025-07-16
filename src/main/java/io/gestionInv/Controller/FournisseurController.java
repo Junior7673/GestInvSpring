@@ -38,10 +38,6 @@ public class FournisseurController {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    //AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-
-    // tu n'as pas de controlleur pour modifier le nom d'un founisseur
-
     @PutMapping("/{id}")
     public ResponseEntity<FournisseurRequestDTO> update(@RequestBody FournisseurRequestDTO dto){
         return ResponseEntity.ok(service.save(dto));
