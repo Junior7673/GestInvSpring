@@ -43,4 +43,15 @@ public class UtilisateurService implements UserDetailsService {
                 .roles(utilisateur.getRole().name())
                 .build();
     }
+
+    /*public UtilisateurJPAEntity findByNomUtilisateur(String nomUtilisateur) {
+        return utilisateurRepository.findByNomUtilisateur(nomUtilisateur)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+    }*/
+    public UtilisateurJPAEntity getUtilisateurParNom(String nom) {
+        return utilisateurRepository.findByNomUtilisateur(nom)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+    }
+
+
 }

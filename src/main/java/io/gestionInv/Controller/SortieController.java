@@ -1,5 +1,6 @@
 package io.gestionInv.Controller;
 
+import io.gestionInv.DTO.CategorieRequestDTO;
 import io.gestionInv.DTO.SortieRequestDTO;
 import io.gestionInv.Service.SortieService;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,11 @@ public class SortieController {
     @GetMapping
     public ResponseEntity<List<SortieRequestDTO>> getAllSorties() {
         return ResponseEntity.ok(service.getAll());
+    }
+
+    @PutMapping
+    public ResponseEntity<SortieRequestDTO> update(@RequestBody SortieRequestDTO dto){
+        return ResponseEntity.ok(service.save(dto));
     }
 
     @DeleteMapping("/{id}")
