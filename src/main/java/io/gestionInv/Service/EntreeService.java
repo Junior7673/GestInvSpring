@@ -8,11 +8,10 @@ import io.gestionInv.Gateway.Impl.EntreeGatewayInterface;
 import io.gestionInv.Gateway.Impl.ProduitGatewayInterface;
 import io.gestionInv.Mapper.EntreeMapper;
 import io.gestionInv.Mapper.ProduitMapper;
-import io.gestionInv.Persistance.ProduitJPAEntity;
-import io.gestionInv.Repository.ProduitJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,8 +37,9 @@ public class EntreeService implements EntreeServiceInterface{
         }
         // Mapping du DTO vers entité domaine
         Entree entree = mapper.toDomain(dto);
+        entree.setProduit(produit);
         // Sauvegarde
-        Entree saved = gateway.save(entree, produit);
+        Entree saved = gateway.save(entree);
 
         int reste = produit.getStockprod() + dto.getStock();
         produit.setStockprod(reste);
@@ -52,6 +52,22 @@ public class EntreeService implements EntreeServiceInterface{
     @Override
     public List<EntreeRequestDTO> getAll() {
         return gateway.findAll()
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EntreeRequestDTO> search(String term) {
+        return gateway.search(term)
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EntreeRequestDTO> filterByPeriod(LocalDate date1, LocalDate date2) {
+        return gateway.filterByPeriod(date1, date2)
                 .stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());

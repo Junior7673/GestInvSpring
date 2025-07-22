@@ -10,8 +10,11 @@ public class ProduitRequestDTO {
     private double prixprod;
     private int stockprod;
     private int seuilAlerteprod;
+
     private Long categorieId;
     private Long fournisseurId;
+
+    private String nomcat;
 
 
     /*public ProduitRequestDTO(String nomprod, double prixprod, int stockprod, int seuilAlerteprod, Long aLong, Long aLong1) {

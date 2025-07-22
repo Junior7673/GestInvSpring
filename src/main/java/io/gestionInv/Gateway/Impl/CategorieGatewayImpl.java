@@ -5,8 +5,10 @@ import io.gestionInv.Mapper.CategorieMapper;
 import io.gestionInv.Persistance.CategorieJPAEntity;
 import io.gestionInv.Repository.CategorieJPARepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,31 +21,22 @@ public class CategorieGatewayImpl implements CategorieGatewayInterface {
 
     @Override
     public Categorie save(Categorie categorie) {
-        CategorieJPAEntity entity = repository.save(mapper.toEntity(categorie));
-        return mapper.toDomain(entity);
+        return repository.save(categorie);
     }
     @Override
     public List<Categorie> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+        return new ArrayList<>(repository.findAll(Sort.by(Sort.Direction.ASC, "nomcat")));
     }
 
     @Override
     public List<Categorie> search(String term) {
-        return repository.findByNomcatContainingIgnoreCase(term)
-                .stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+        return new ArrayList<>(repository.findByNomcatContainingIgnoreCase(term));
     }
 
     @Override
     public Categorie findById(Long id) {
-       /* Optional<CategorieJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toEntity).orElse(null);*/
-        Optional<CategorieJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toDomain).orElse(null);
+        Optional<Categorie> entity = repository.findById(id);
+        return entity.orElse(null);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package io.gestionInv.Gateway.Impl;
 
+import io.gestionInv.Domaine.Entree;
 import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Domaine.Sortie;
 import io.gestionInv.Mapper.SortieMapper;
@@ -9,6 +10,8 @@ import io.gestionInv.Repository.SortieJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,23 +23,29 @@ public class SortieGatewayImpl implements SortieGatewayInterface{
     private final SortieMapper mapper;
 
     @Override
-    public Sortie save(Sortie sortie, Produit produit) {
-        SortieJPAEntity entity = repository.save(mapper.toEntityComplete(sortie, produit));
-        return mapper.toDomain(entity);
+    public Sortie save(Sortie sortie) {
+        return repository.save(sortie);
     }
 
     @Override
     public List<Sortie> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+        return new ArrayList<>(repository.findAll());
+    }
+
+    @Override
+    public List<Sortie> search(String term) {
+        return new ArrayList<>(repository.findByProduit_NomprodContainingIgnoreCase(term));
+    }
+
+    @Override
+    public List<Sortie> filterByPeriod(LocalDate date1, LocalDate date2){
+        return new ArrayList<>(repository.findByDateBetween(date1, date2));
     }
 
     @Override
     public Sortie findById(Long id) {
-        Optional<SortieJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toDomain).orElse(null);
+        Optional<Sortie> entity = repository.findById(id);
+        return entity.orElse(null);
     }
 
     @Override

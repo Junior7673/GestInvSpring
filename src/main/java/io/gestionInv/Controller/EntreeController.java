@@ -1,7 +1,7 @@
 package io.gestionInv.Controller;
 
-import io.gestionInv.DTO.CategorieRequestDTO;
 import io.gestionInv.DTO.EntreeRequestDTO;
+import io.gestionInv.DTO.PeriodRequestDTO;
 import io.gestionInv.Service.EntreeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +29,16 @@ public class EntreeController {
     @GetMapping
     public ResponseEntity<List<EntreeRequestDTO>> getAllEntrees() {
         return ResponseEntity.ok(service.getAll());
+    }
+
+    @GetMapping("/search/{term}")
+    public ResponseEntity<List<EntreeRequestDTO>> search(@PathVariable String term) {
+        return ResponseEntity.ok(service.search(term));
+    }
+
+    @PostMapping("/period")
+    public ResponseEntity<List<EntreeRequestDTO>> filterByPeriod(@RequestBody PeriodRequestDTO dto) {
+        return ResponseEntity.ok(service.filterByPeriod(dto.getDate1(), dto.getDate2()));
     }
 
     @PutMapping

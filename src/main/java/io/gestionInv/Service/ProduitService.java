@@ -43,8 +43,11 @@ public class ProduitService implements ProduitServiceInterface{
         }
         // Mapping du DTO vers entité domaine
         Produit produit = mapper.toDomain(dto);
+        produit.setCategorie(categorie);
+        produit.setFournisseur(fournisseur);
+
         // Sauvegarde
-        Produit saved = gateway.save(produit, categorie, fournisseur);
+        Produit saved = gateway.save(produit);
         // Retour du DTO avec ID généré
         return mapper.toDTO(saved);
     }
@@ -66,6 +69,14 @@ public class ProduitService implements ProduitServiceInterface{
     }
 
     @Override
+    public List<ProduitRequestDTO> filterByCategory(Long categorieId){
+        return gateway.filterByCategory(categorieId)
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ProduitRequestDTO> produitsEnAlerte() {
         return gateway.findAll().stream()
                 .filter(p -> p.getStockprod() < p.getSeuilAlerteprod())
@@ -79,7 +90,9 @@ public class ProduitService implements ProduitServiceInterface{
         if (produit == null) {
             throw new RessourceIntrouvableException("Produit avec ID " + id + " introuvable.");
         }
-        return mapper.toDTO(produit);    }
+
+        return mapper.toDTO(produit);
+    }
 
     @Override
     public void delete(Long id) {

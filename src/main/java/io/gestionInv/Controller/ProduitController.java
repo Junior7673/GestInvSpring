@@ -30,9 +30,19 @@ public class ProduitController {
         return ResponseEntity.ok(service.save(dto));
     }
 
+    @PutMapping
+    public ResponseEntity<ProduitRequestDTO> update(@RequestBody ProduitRequestDTO dto) {
+        return ResponseEntity.ok(service.save(dto));
+    }
+
     @PostMapping("/search")
     public ResponseEntity<List<ProduitRequestDTO>> search(@RequestBody ProduitRequestDTO dto) {
         return ResponseEntity.ok(service.search(dto.getNomprod()));
+    }
+
+    @PostMapping("/filter/categorie")
+    public ResponseEntity<List<ProduitRequestDTO>> filterByCategory(@RequestBody ProduitRequestDTO dto) {
+        return ResponseEntity.ok(service.filterByCategory(dto.getCategorieId()));
     }
 
     @GetMapping

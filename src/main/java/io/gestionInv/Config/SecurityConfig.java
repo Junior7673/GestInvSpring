@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/produit/**", "/categorie/**", "/fournisseur/**", "/entree", "/sortie").permitAll() // <-- accessible sans token
+                        .requestMatchers("/produit/**", "/categorie/**", "/fournisseur/**", "/entree/**", "/sortie/**").permitAll() // <-- accessible sans token
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

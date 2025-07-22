@@ -7,6 +7,7 @@ import io.gestionInv.Repository.FournisseurJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,32 +20,23 @@ public class FournisseurGatewayImpl implements FournisseurGatewayInterface{
 
     @Override
     public Fournisseur save(Fournisseur fournisseur) {
-        FournisseurJPAEntity entity = repository.save(mapper.toEntity(fournisseur));
-        return mapper.toDomain(entity);
+        return repository.save(fournisseur);
     }
 
     @Override
     public List<Fournisseur> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+        return new ArrayList<>(repository.findAll());
     }
 
     @Override
     public List<Fournisseur> search(String term)
     {
-        return repository.findByNomfourniContainingIgnoreCase(term)
-                .stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+        return new ArrayList<>(repository.findByNomfourniContainingIgnoreCase(term));
     }
     @Override
     public Fournisseur findById(Long id) {
-        /*Optional<FournisseurJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toEntity).orElse(null);*/
-        Optional<FournisseurJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toDomain).orElse(null);
+        Optional<Fournisseur> entity = repository.findById(id);
+        return entity.orElse(null);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package io.gestionInv.Persistance;
 
+import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Domaine.Sortie;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,5 @@ public class SortieJPAEntity {
 
     @ManyToOne
     @JoinColumn(name = "produitId")
-    private ProduitJPAEntity produit;
+    private Produit produit;
 }

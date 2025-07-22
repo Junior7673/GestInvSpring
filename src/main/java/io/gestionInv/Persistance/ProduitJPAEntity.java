@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 @Table(name="Produit")
 public class ProduitJPAEntity {

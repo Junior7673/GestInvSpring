@@ -1,6 +1,8 @@
 package io.gestionInv.Controller;
 
 import io.gestionInv.DTO.CategorieRequestDTO;
+import io.gestionInv.DTO.EntreeRequestDTO;
+import io.gestionInv.DTO.PeriodRequestDTO;
 import io.gestionInv.DTO.SortieRequestDTO;
 import io.gestionInv.Service.SortieService;
 import lombok.AllArgsConstructor;
@@ -29,6 +31,16 @@ public class SortieController {
     @GetMapping
     public ResponseEntity<List<SortieRequestDTO>> getAllSorties() {
         return ResponseEntity.ok(service.getAll());
+    }
+
+    @GetMapping("/search/{term}")
+    public ResponseEntity<List<SortieRequestDTO>> search(@PathVariable String term) {
+        return ResponseEntity.ok(service.search(term));
+    }
+
+    @PostMapping("/period")
+    public ResponseEntity<List<SortieRequestDTO>> filterByPeriod(@RequestBody PeriodRequestDTO dto) {
+        return ResponseEntity.ok(service.filterByPeriod(dto.getDate1(), dto.getDate2()));
     }
 
     @PutMapping

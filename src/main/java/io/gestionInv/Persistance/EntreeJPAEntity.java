@@ -30,5 +30,5 @@ public class EntreeJPAEntity {
 
     @ManyToOne
     @JoinColumn(name = "produitId")
-    private ProduitJPAEntity produit;
+    private Produit produit;
 }

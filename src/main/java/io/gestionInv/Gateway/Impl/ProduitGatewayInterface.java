@@ -10,10 +10,11 @@ import io.gestionInv.Persistance.ProduitJPAEntity;
 import java.util.List;
 
 public interface ProduitGatewayInterface {
-    Produit save(Produit produit, Categorie categorie, Fournisseur fournisseur);
+    Produit save(Produit produit);
     List<Produit> findProduitsEnAlerte();
     List<Produit> findAll();
     List<Produit> search(String term);
+    List<Produit> filterByCategory(Long id);
     Produit findById(Long id);
     void delete(Long id);
 }

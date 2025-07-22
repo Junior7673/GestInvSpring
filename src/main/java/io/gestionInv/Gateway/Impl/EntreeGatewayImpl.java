@@ -9,6 +9,8 @@ import io.gestionInv.Persistance.ProduitJPAEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,23 +22,29 @@ public class EntreeGatewayImpl implements EntreeGatewayInterface{
     private final EntreeMapper mapper;
 
    @Override
-    public Entree save(Entree entree, Produit produit) {
-        EntreeJPAEntity entity = repository.save(mapper.toEntityComplete(entree, produit));
-        return mapper.toDomain(entity);
+    public Entree save(Entree entree) {
+       return repository.save(entree);
     }
 
     @Override
     public List<Entree> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+        return new ArrayList<>(repository.findAll());
+    }
+
+    @Override
+    public List<Entree> search(String term) {
+        return new ArrayList<>(repository.findByProduit_NomprodContainingIgnoreCase(term));
+    }
+
+    @Override
+    public List<Entree> filterByPeriod(LocalDate date1, LocalDate date2){
+        return new ArrayList<>(repository.findByDateBetween(date1, date2));
     }
 
     @Override
     public Entree findById(Long id) {
-        Optional<EntreeJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toDomain).orElse(null);
+        Optional<Entree> entity = repository.findById(id);
+        return entity.orElse(null);
     }
 
     @Override

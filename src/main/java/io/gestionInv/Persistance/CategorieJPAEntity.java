@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 @Table(name="Categorie")
 public class CategorieJPAEntity  {

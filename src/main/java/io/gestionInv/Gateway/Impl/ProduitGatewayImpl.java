@@ -9,8 +9,10 @@ import io.gestionInv.Persistance.FournisseurJPAEntity;
 import io.gestionInv.Persistance.ProduitJPAEntity;
 import io.gestionInv.Repository.ProduitJPARepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,40 +23,37 @@ public class ProduitGatewayImpl implements ProduitGatewayInterface {
     private final ProduitJPARepository repository;
     private final ProduitMapper mapper;
 
-
     @Override
-    public Produit save(Produit produit, Categorie categorie, Fournisseur fournisseur) {
-        ProduitJPAEntity entity = repository.save(mapper.toEntity(produit, categorie, fournisseur));
-        return mapper.toDomain(entity);
+    public Produit save(Produit produit) {
+        return repository.save(produit);
     }
 
     @Override
     public List<Produit> findProduitsEnAlerte() {
         return repository.findAll().stream()
                 .filter(p -> p.getStockprod() <= p.getSeuilAlerteprod())
-                .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Produit> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());    }
+        return new ArrayList<>(repository.findAll(Sort.by(Sort.Direction.ASC, "nomprod")));
+    }
 
     @Override
     public List<Produit> search(String term){
-        return repository.findByNomprodContainingIgnoreCase(term)
-            .stream()
-            .map(mapper::toDomain)
-            .collect(Collectors.toList());
+        return new ArrayList<>(repository.findByNomprodContainingIgnoreCase(term));
+    }
+
+    @Override
+    public List<Produit> filterByCategory(Long categorieId){
+        return new ArrayList<>(repository.findByCategorieId(categorieId));
     }
 
     @Override
     public Produit findById(Long id) {
-        Optional<ProduitJPAEntity> entity = repository.findById(id);
-        return entity.map(mapper::toDomain).orElse(null);
+        Optional<Produit> entity = repository.findById(id);
+        return entity.orElse(null);
     }
 
     @Override

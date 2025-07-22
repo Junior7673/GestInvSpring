@@ -1,5 +1,6 @@
 package io.gestionInv.Service;
 
+import io.gestionInv.DTO.EntreeRequestDTO;
 import io.gestionInv.DTO.SortieRequestDTO;
 import io.gestionInv.Domaine.Produit;
 import io.gestionInv.Domaine.Sortie;
@@ -8,11 +9,10 @@ import io.gestionInv.Gateway.Impl.ProduitGatewayInterface;
 import io.gestionInv.Gateway.Impl.SortieGatewayInterface;
 import io.gestionInv.Mapper.ProduitMapper;
 import io.gestionInv.Mapper.SortieMapper;
-import io.gestionInv.Persistance.ProduitJPAEntity;
-import io.gestionInv.Repository.ProduitJPARepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,9 +37,11 @@ public class SortieService implements SortieServiceInterface{
             throw new RessourceIntrouvableException("Produit avec ID " + dto.getProduitId() + " introuvable.");
         }
         // Mapping du DTO vers entité domaine
-        Sortie sortie = mapper.toDomain(dto, produit);
+        Sortie sortie = mapper.toDomain(dto);
+        sortie.setProduit(produit);
+        sortie.setProduit(produit);
         // Sauvegarde
-        Sortie saved = gateway.save(sortie, produit);
+        Sortie saved = gateway.save(sortie);
 
         int reste = produit.getStockprod() - dto.getStock();
         produit.setStockprod(reste);
@@ -52,6 +54,22 @@ public class SortieService implements SortieServiceInterface{
     @Override
     public List<SortieRequestDTO> getAll() {
         return gateway.findAll()
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SortieRequestDTO> search(String term) {
+        return gateway.search(term)
+                .stream()
+                .map(mapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SortieRequestDTO> filterByPeriod(LocalDate date1, LocalDate date2) {
+        return gateway.filterByPeriod(date1, date2)
                 .stream()
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
